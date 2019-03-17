@@ -19,32 +19,38 @@ Examples are provided in C# and/or F#. If I find the time I will also add exampl
 ### 01 - Basics 
 #### What is FP
 Functional programming is a programming paradigm. Rather than how something is done, you specify what needs to be done (also called declarative programming). At first this sounds quite strange, but I am sure you will be familiar with it quite soon.
-You are already familiar with the opposite of declarative programming: imperative programming.
-In imperative programming you have statements. 
+You are already familiar with the opposite of declarative programming: imperative programming. But I am sure, you already cam across some functional concepts. I will show you an example. 
+We have a list of numbers
 
-'''
-int main()
-{
-  int n, first = 0, second = 1, next, c;
+```
+ IList<int> numbers = new List<int>() { 0, 3, 6, 21, 35, 4 };
  
-  printf("Enter the number of terms\n");
-  scanf("%d", &n);
- 
-  printf("First %d terms of Fibonacci series are:\n", n);
- 
-  for (c = 0; c < n; c++)
-  {
-    if (c <= 1)
-      next = c;
-    else
-    {
-      next = first + second;
-      first = second;
-      second = next;
-    }
-    printf("%d\n", next);
-  }
- 
-  return 0;
-}
-'''
+```
+Now we want to add 5 to each number. In the typical iterative way we would write something like this:
+
+```
+        public IList<int> imperativeExample(IList<int> numbers)
+        {
+            var resultList = new List<int>();
+
+            foreach (int number in numbers)
+            {
+                int numPlus5 = number + 5;
+                resultList.Add(number);
+            }
+
+            return resultList;
+        }
+
+```
+Here we tell the compiler excactly how he should add 5 to each number. We tell him that he has to create a new list to store the results, then he should take the first number add 5 to it, add the result to the result list. Then go to the next number... and finally return the list!
+So how does this code look in functional programming?
+
+```
+        public IList<int> functionalExample(IList<int> numbers)
+        {
+            return numbers.Select(x => x + 5).ToList();
+        }
+
+```
+As I mentioned earlier, we don't care here how 5 is added. Technically in the background it is done with a loop, however this is not something we want to know here. So we straightforward can select the numbers in the list and add 5 to them.
