@@ -29,28 +29,29 @@ We have a list of numbers
 Now we want to add 5 to each number. In the typical iterative way we would write something like this:
 
 ```
-        public IList<int> imperativeExample(IList<int> numbers)
-        {
-            var resultList = new List<int>();
+public List<int> imperativeAdd5(List<int> numbers)
+{
+    List<int> resultList = new List<int>();
+            
+    foreach (int number in numbers)
+    {
+        int numPlus5 = number + 5;
+        resultList.Add(number);
+    }
 
-            foreach (int number in numbers)
-            {
-                int numPlus5 = number + 5;
-                resultList.Add(number);
-            }
-
-            return resultList;
-        }
+    return resultList;
+}
 
 ```
 Here we tell the compiler excactly how he should add 5 to each number. We tell him that he has to create a new list to store the results, then he should take the first number add 5 to it, add the result to the result list. Then go to the next number... and finally return the list!
 So how does this code look in functional programming?
 
 ```
-        public IList<int> functionalExample(IList<int> numbers)
-        {
-            return numbers.Select(x => x + 5).ToList();
-        }
+public List<int> functionalAdd5(List<int> numbers)
+{
+    return numbers.Select(x => x + 5).ToList();    
+}
 
 ```
 As I mentioned earlier, we don't care here how 5 is added. Technically in the background it is done with a loop, however this is not something we want to know here. So we straightforward can select the numbers in the list and add 5 to them.
+So as you can see functional programming doesnt require any wizard skills, it is straightforward!
